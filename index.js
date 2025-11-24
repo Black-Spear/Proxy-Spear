@@ -9,10 +9,8 @@ app.get("/embed/:id", async (req, res) => {
   const videoId = req.params.id;
 
   try {
-    // URL real de YouTube embed
     const youtubeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`;
 
-    // Descargamos HTML con headers realistas
     const ytResponse = await fetch(youtubeUrl, {
       headers: {
         "User-Agent":
