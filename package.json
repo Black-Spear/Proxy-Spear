@@ -1,0 +1,11 @@
+
+{
+  "name": "spear-proxy",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "express": "latest",
+    "cors": "latest",
+    "node-fetch": "latest"
+  }
+}
