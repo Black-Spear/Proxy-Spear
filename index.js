@@ -9,7 +9,10 @@ app.get("/embed/:id", async (req, res) => {
   const videoId = req.params.id;
 
   try {
-    const youtubeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`;
+    const autoplay = req.query.autoplay === "0" ? 0 : 1;
+    
+    const youtubeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay}&mute=${autoplay}`;
+
 
     const ytResponse = await fetch(youtubeUrl, {
       headers: {
@@ -26,32 +29,32 @@ app.get("/embed/:id", async (req, res) => {
     }
 
     let embedHtml = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: black;
-          }
-          iframe {
-            width: 100vw;
-            height: 100vh;
-            border: none;
-          }
-        </style>
-      </head>
-      <body>
-        <iframe
-          src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=1"
-          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </body>
-      </html>
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body, html {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background: black;
+        }
+        iframe {
+          width: 100vw;
+          height: 100vh;
+          border: none;
+        }
+      </style>
+    </head>
+    <body>
+      <iframe
+        src="https://www.youtube.com/embed/${videoId}?autoplay=${autoplay}&mute=${autoplay}&controls=1"
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </body>
+    </html>
     `;
 
     res.send(embedHtml);
